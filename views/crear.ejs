@@ -1,0 +1,24 @@
+<%- include("template/cabecera", {tituloWeb: 'Crear Nuevo Contacto'}) %>
+
+ <div class="container">
+   <h1>Crear</h1>
+   <form action="/contactos" method="POST">
+     <input type="text"
+      placeholder="Agregar un contacto"
+      class="form-control my-2"
+      name="name"
+     >
+     <input type="text"
+     placeholder="Agregar un email"
+     class="form-control my-2"
+     name="email"
+    >
+    <button class="btn btn-success btn-toolbar"
+     type="submit">
+      Agragar
+    </button>
+   </form>
+ </div>
+
+</body>
+</html>

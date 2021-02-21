@@ -2,6 +2,14 @@
 
 
   <div class="container">
+    <h1>CRUD MONGO</h1>
+    <a
+    class="btn btn-success btn-toolbar my-4"
+    href="/contactos/crear"
+    >
+      Crear Nuevo Contacto
+  </a>
+
     <table class="table">
       <thead>
         <tr>
@@ -19,7 +27,10 @@
               <th scope="row"><%= contacto.id %> </th>
               <td><%= contacto.name %> </td>
               <td><%= contacto.email %> </td>
-              <td>@mdo</td>
+              <td>
+                <a href="/contactos/<%= contacto.id %>"
+                 class="btn btn-warning btn-sm">Editar</a>                 
+              </td>
             </tr>
     
           <% }) %>         

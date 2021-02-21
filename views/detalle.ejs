@@ -1,0 +1,99 @@
+<%- include("template/cabecera", {tituloWeb: 'Detalle de contacto'}) %>
+
+ <div class="container">
+   <h1>Detalle Contacto</h1>
+   <% if (error) { %>
+    <p>
+        <%= mensaje  %> 
+    </p>
+    <a href="/contactos" class="btn btn-dark btn-toolbar">Volver a Contactos</a>    
+   <% } %>
+
+   <% if (!error) { %>
+    
+    <form id="formularioEditar" data-id = "<%= contacto.id %>">
+      <input type="text"
+       name="name" 
+       class="form-control my-2" 
+       value="<%= contacto.name %>"
+        id="contactoInput">
+
+      <input type="text"
+       name="email" 
+       class="form-control my-2"
+        value="<%= contacto.email %>"
+         id="emailInput">
+
+      <button type="submit"
+       class="btn btn-warning btn-group-lg"
+       >Editar
+      </button>
+
+    </form>
+
+    <hr>
+
+    <button
+      class="btn btn-danger btn-sm mt-lg-5" 
+      id="btnEliminar"
+      data-id = "<%= contacto.id %>">
+      Eliminar
+    </button>    
+   <% } %>  
+ </div>
+ <script>
+const btnEliminar = document.querySelector('.btn-danger')
+  btnEliminar.addEventListener('click', async() => {
+    console.log(btnEliminar.dataset.id) 
+
+    try {
+        const data = await fetch(`/contactos/${btnEliminar.dataset.id}`, {
+          method: 'delete'
+        })
+        const res = await data.json()
+        console.log(res)
+
+        if(res.estado){
+            window.location.href = '/contactos'
+        }else{
+            console.log(res)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+  })
+
+  const formularioEditar = document.querySelector('#formularioEditar')
+
+  formularioEditar.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const name = document.querySelector('#contactoInput').value
+    const email = document.querySelector('#emailInput').value
+    const id = formularioEditar.dataset.id
+
+    try {
+      const data = await fetch(`/contactos/${id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name, email})        
+      })
+
+      const res = await data.json()
+          if(res.estado){
+            window.location.href = '/contactos'
+          }else{
+            console.log(res)
+          }
+    } catch (error) {
+      console.log(error)
+    }
+  })
+ </script>
+
+
+</body>
+</html>
