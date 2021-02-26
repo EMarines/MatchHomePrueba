@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const contactoSchema = new Schema({
   name: String,
-  email: String
+  telefono: Number,
+  email: String,
+  tipCont: String
 });
 
 // Crear el modelo

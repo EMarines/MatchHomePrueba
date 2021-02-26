@@ -9,10 +9,23 @@
       name="name"
      >
      <input type="text"
+     placeholder="Teléfono"
+     class="form-control my-2"
+     name="telefono"
+    >
+     <input type="text"
      placeholder="Agregar un email"
      class="form-control my-2"
      name="email"
     >
+    <select  class="form-control my-2" name="tipCont" id="tipCont">
+      <option value="tipCont">Tipo de Contacto?</option>
+      <option value="comprador">Comprador</option>
+      <option value="propietario">Propietario</option>
+      <option value="arrendador">Arrendador</option>
+      <option value="ageAsoc">Agente Asociado</option>
+      <option value="ageInmo">Agente Inmobiliario</option>
+    </select>
     <button class="btn btn-success btn-toolbar"
      type="submit">
       Agragar

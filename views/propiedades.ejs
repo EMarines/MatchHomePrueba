@@ -1,0 +1,34 @@
+<%- include("template/cabecera", {tituloWeb: 'Propiedades'}) %>
+
+<div class="container">
+  <h1 class="text-primary">PROPIEDADES MatchHome</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Nombre Propiedad</th>
+        <th scope="col">Colonia</th>
+        <th scope="col">Precio</th>
+        <th scope="col">acción</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if (arrayPropiedades.length > 0) { %>
+        <% arrayPropiedades.forEach(propiedad => { %>
+          <tr>
+            <th scope="row"><%= propiedad.id %> </th>
+            <td><%= propiedad.nameProp %></td>
+            <td><%= propiedad.colonia %></td>
+            <td><%= propiedad.precio %></td>
+            <td>@mod</td>
+          </tr>
+        
+  
+        <% }) %>         
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("template/footer") %>

@@ -1,0 +1,107 @@
+<%- include("template/cabecera", {tituloWeb: 'Editar Contacto'}) %>
+
+ <div class="container">
+   <h1>Editar Contacto</h1>
+   <% if (error) { %>
+    <p>
+        <%= mensaje  %> 
+    </p>
+    <a href="/contactos" class="btn btn-dark btn-toolbar">Volver a Contactos</a>    
+   <% } %>
+
+   <% if (!error) { %>    
+    <form id="formularioEditar" data-id="<%= contacto.id  %> ">
+      <input type="text"
+       placeholder="Agregar un contacto"
+       class="form-control my-2"
+       name="name"
+       value="<%= contacto.name %>"
+       id="nameInput"
+      >
+      <input type="text"
+      placeholder="Teléfono"
+      class="form-control my-2"
+      name="telefono"
+      value="<%= contacto.telefono %>"
+      id="telefonoInput"
+     >
+      <input type="text"
+      placeholder="Agregar un email"
+      class="form-control my-2"
+      name="email"
+      value="<%= contacto.email %>"
+      id="emailInput"
+     >
+     <select  class="form-control my-2" name="tipCont" id="tipCont" value="<%= contacto.tipCont %>">
+       <option value="tipCont">Tipo de Contacto?</option>
+       <option value="comprador">Comprador</option>
+       <option value="propietario">Propietario</option>
+       <option value="arrendador">Arrendador</option>
+       <option value="ageAsoc">Agente Asociado</option>
+       <option value="ageInmo">Agente Inmobiliario</option>
+     </select>
+     <button class="btn btn-success btn-toolbar"
+      type="submit">
+       Guardar Cambios
+     </button>
+    </form>
+    <hr>
+    <button
+      class="btn btn-danger btn-sm mt-lg-5" 
+      id="btnEliminar"
+      data-id = "<%= contacto.id %>">
+      Eliminar
+    </button>    
+   <% } %>  
+ </div>
+
+ <%- include("template/footer") %>
+
+ <script>
+  const btnEliminar = document.querySelector('#btnEliminar')
+    btnEliminar.addEventListener('click', async() => {
+      const id = ('id', id)
+      try {
+          const data = await fetch(`/contactos/${id}`, {
+            method: 'delete'
+          })
+          const res = await data.json()
+          console.log(res)          
+          if(res.estado){
+              window.location.href = '/contactos'
+          }else{
+              console.log(res)
+          }
+      } catch (error) {
+          console.log(error)
+      }
+    })
+
+    const formularioEditar = document.querySelector('#formularioEditar')
+    formularioEditar.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const name = document.querySelector('#nameInput').value
+      const telefono = document.querySelector('#telefonoInput').value
+      const email = document.querySelector('#emailInput').value
+      const tipCont = document.querySelector('#tipContInput').value
+      const id = formularioEditar.dataset.id
+      // console.log(name, telefono, email, tipCont)
+      try {
+        const data = await fetch(`/contactos/${id}`, {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({name, telefono, email, tipCont})        
+        })
+        const res = await data.json()
+            if(res.estado){
+              window.location.href = '/contactos'
+            }else{
+              console.log(res)
+            }
+      } catch (error) {
+        console.log(error)
+      }
+    })
+ </script>
